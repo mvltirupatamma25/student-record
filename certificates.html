@@ -1,0 +1,26 @@
+{% extends "main.html" %}
+
+{% block content %}
+{% load static %}
+<br>
+<div class="container">
+  <a href= "/"><img src="{% static '/Image/Logouticon.jfif' %}" style="width:40px;height:40px; margin-left: 100%"></a><br>
+  <a href="javascript:history.go(-1)"><img src="{% static '/Image/Backicon.png' %}" style="width:40px;height:40px;margin-top: -70px"></a><br>
+  {% for student in Details %}
+  <h3>STUDY OF CONDUCT</h3>
+      <center><img src="{{student.Study_Of_Conduct.url}}" height="1000"></center>
+  <b><hr></b>
+  <br>
+  <h3>TRANSFER CERTIFICATE</h3>
+      <center><img src="{{student.Transfer_Certificate.url}}" height="1000"></center>
+  <b><hr></b>
+  <br>
+  <h3>TENTH MARKS MEMO</h3>
+      <center><img src="{{student.Study_Of_Conduct.url}}" height="1000"></center>
+  <b><hr></b>
+  <br>
+  <h3>INTERMEDIATE MARKS MEMO</h3>
+      <center><img src="{{student.Study_Of_Conduct.url}}" height="1000"></center>
+    {% endfor %}
+  </div>
+{% endblock %}

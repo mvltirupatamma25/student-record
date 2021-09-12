@@ -1,0 +1,45 @@
+{% extends "main.html" %}
+
+{% block content %}
+{% load static %}
+<style>
+.vl {
+  border-left: 10px solid #00868B;;
+  height: 500px;
+  margin-left: -20px;
+}
+.card{
+	box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+	border-color: #99c2ff;
+}
+</style>
+<body>
+<a href = "/"><img src="{% static '/images/Logouticon.jpeg' %}" style="width:40px;height:40px; margin-left: 100%;margin-top:10px;"></a>
+<a href="javascript:history.go(-1)"><img src="{% static '/images/Backicon.jpeg' %}" style="width:40px;height:40px;margin-top: -70px"></a><br>
+<div class="container">
+	<a href="/Teacher/Attendance/{{Id}}/{{Year}}/{{Group}}/{{Semester}}/{{Course}}/" class='btn btn-primary'>Attendance</a>
+	<a href="/Teacher/Marks/{{Id}}/{{Year}}/{{Group}}/{{Semester}}/{{Course}}/" class='btn btn-primary' style="width:100px">Marks</a>
+	<br><br>
+	<center><h1 style="margin-left: 800px;">TOTAL STUDENTS LIST</h1></center>
+      <div class="card" style="width: 30rem;background: #C2FDFE; margin-left: 800px;">
+			</div>
+			<br>
+	<div class="vl"></div>
+	<div class="row" style="margin-top: -500px">
+	    <div class="col">
+	    <div class="row row-cols-5">
+		{% for student in class_student %}&nbsp;&nbsp;&nbsp;
+		<div class="card" style="width: 14rem; height: 8rem;">
+			<div class="card-body">
+			 <h5 class="card-title" style="color: #00868B;">{{student.Roll_Number}}</h5>
+			 <p class="card-text">{{student.Last_Name}}&nbsp;{{student.First_Name}}</p>
+			  </div>
+			</div>
+		{% endfor %}
+	</div>
+    </div>
+    
+</div>
+</div>
+</body>  
+{% endblock %}

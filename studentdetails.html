@@ -1,0 +1,123 @@
+{% extends "main.html" %}
+
+{% block content %}
+{%load static %}
+<style>
+	.card-img-top{
+		width:50%;
+		height:40%;
+		box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+
+	}
+	.container1{
+  border: 5px solid #680229;
+  margin-top: 2%;
+}
+.card-img-top{
+	border:2px solid #0000;
+}
+
+	</style>
+	<a href= "/"><img src="{% static '/images/Logouticon.jpeg' %}" style="width:30px;height:30px; margin-left: 100%"></a><br>
+	<a href="javascript:history.go(-1)"><img src="{% static '/images/Backicon.jpeg' %}" style="width:40px;height:40px;margin-top: -70px "></a><br>
+<div class="container1" ><br><br>
+	{% for Student in student %}
+	<b><a href="/Student/Attendance/{{Student.Roll_Number}}/{{Student.Group.Group}}/" class='btn btn-outline-dark' style="margin-left:79%; width:10%; margin-top: -14.5%;">Attendance</a><br></b><br>
+	<b><a href="/Student/ExaminationMarks/{{Student.Roll_Number}}/{{Student.Group.Group}}/" class='btn btn-outline-dark'  style="width:10%; margin-left: 90%; margin-top:-22%">Marks</a></b>
+	<div class='col'>
+			<div class='row'>
+	<div class = 'col-4'>
+		<br>
+	<img src='{{Student.Student_Image.url}}' class="card-img-top" alt="..." style="margin-left:20%" align="left">
+</div>
+<div class = 'col-8'>
+	<div class="row" style="font-size: 20px; font-family: cursive;">
+		<br>
+		<div class='col-2' style="background-color: #fc8cb7; color:white; font-family: cursive;"><b>First Name</b></div>
+		<div class='col-1' ><b>{{Student.Frist_Name}}</b></div>
+		<div class="w-100"></div>
+		<div class='col-2'>Middle Name</div>
+		<div class='col'>{{Student.Middle_Name}}</div>
+		<div class="w-100"></div>
+		<div class='col' style="background-color:  #fb69a1; color:white;font-family: cursive; ">Last Name</div>
+		<div class='col'><b>{{Student.Last_Name}}</b></div>
+		<div class="w-100"></div>
+		<div class='col' style="background-color: #fb468b; color:white;font-family: cursive;"><b>Roll No</b></div>
+		<div class='col'><b>{{Student.Roll_Number}}</b></div>
+		<div class="w-100"></div>
+		<div class='col' style='background-color: #fa2375; color:white;font-family: cursive;'><b>Class</b></div>
+		<div class='col'><b>{{Student.Class}}</b></div>
+		<div class="w-100"></div>
+		<div class='col' style='background-color:#f40561; color:white; font-family: cursive;'><b>Group</b></div>
+		<div class='col'><b>{{Student.Group.Group}}</b></div>
+		<div class="w-100"></div>
+		<div class='col'>Admission Number</div>
+		<div class='col'>{{Student.Admission_Number}}</div>
+		<div class="w-100"></div>
+		<div class='col'>Date Of Birth</div>
+		<div class='col'>{{Student.Date_Of_Birth}}</div>
+		<div class="w-100"></div>
+		<div class='col'>Gender</div>
+		<div class='col'>{{Student.Gender}}</div>
+		<div class="w-100"></div>
+		<div class='col'>Father Name</div>
+		<div class='col'>{{Student.Father_Name}}</div>
+		<div class="w-100"></div>
+		<div class='col'>Mother Name</div>
+		<div class='col'>{{Student.Mother_Name}}</div>
+		<div class="w-100"></div>
+		<div class='col'>Gaurdian Name</div>
+		<div class='col'>{{Student.Gaurdian_Name}}</div>
+		<div class="w-100"></div>
+		<div class='col'>Religion</div>
+		<div class='col'>{{Student.Religion}}</div>
+		<div class="w-100"></div>
+		<div class='col'>Nationality</div>
+		<div class='col'>{{Student.Nationality}}</div>
+		<div class="w-100"></div>
+		<div class='col'>Aadhar Number</div>
+		<div class='col'>{{Student.Aadhaar_Number}}</div>
+		<div class="w-100"></div>
+		<div class='col' style='background-color:#d10453; color:white;font-family: cursive;'><b>Mobile Number</b></div>
+		<div class='col'><b>{{Student.Mobile_Number}}</b></div>
+		<div class="w-100"></div>
+		<div class='col' style='background-color:#ae0345; color:white; font-family: cursive;'><b>Email Id</b></div>
+		<div class='col'><b>{{Student.Email_Id}}</b></div>
+		<div class="w-100"></div>
+		<div class='col'>Alternate Mobile Number</div>
+		<div class='col'>{{Student.Alternate_Mobile_Number}}</div>
+		<div class="w-100"></div>
+		<div class='col'>Door Number</div>
+		<div class='col'>{{Student.Door_Number}}</div>
+		<div class="w-100"></div>
+		<div class='col'>Premises</div>
+		<div class='col'>{{Student.Premises}}</div>
+		<div class="w-100"></div>
+		<div class='col'>street</div>
+		<div class='col'>{{Student.Street}}</div>
+		<div class="w-100"></div>
+		<div class='col'>Area</div>
+		<div class='col'>{{Student.Area}}</div>
+		<div class="w-100"></div>
+		<div class='col'>City</div>
+		<div class='col'>{{Student.City}}</div>
+		<div class="w-100"></div>
+		<div class='col'>State</div>
+		<div class='col'>{{Student.State}}</div>
+		<div class="w-100"></div>
+		<div class='col'>Country</div>
+		<div class='col'>{{Student.Country}}</div>
+		<div class="w-100"></div>
+		<div class='col'>Pin Code</div>
+		<div class='col'>{{Student.Pin_Code}}</div>
+
+</div>
+</div>
+</div>
+	{% endfor %}
+	<br>
+
+</div>
+</div>
+</div>  
+{% endblock %}

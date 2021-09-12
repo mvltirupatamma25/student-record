@@ -1,0 +1,137 @@
+{% extends "main.html" %}
+
+{% block content %}
+{% load static %}
+<a href = "/"><img src="{% static '/images/Logouticon.jpeg' %}" style="width:40px;height:40px; margin-left: 100%; margin-top:10px;"></a>
+<a href="javascript:history.go(-1)"><img src="{% static '/images/Backicon.jpeg' %}" style="width:40px;height:40px;margin-top: -70px"></a>
+<div id="container" style="width: 48%;margin-top: -50px">
+	<br>
+	<h5 style="margin-bottom: 10px; margin-top: 20px">Attendance Report of {{class}}</h5>
+	<div class="row">
+    <div class="col-15">
+      <label style="margin-bottom: 10px;">Title Of The Paper</label> : {{Cos.Course_Title}}<br>
+      <label style="margin-bottom: 10px;">Course Code </label> : {{course}}<br>
+      <label style="margin-bottom: 10px;">Total Working Days</label> : {{T_W}}<br>
+      <label style="margin-bottom: 10px;">Total Class Strength</label> : {{len}}<br>
+      <label style="margin-bottom: 10px;">Number Of Student Below 75 % Attendance</label> : {{below}}<br>
+	  <label style="margin-bottom: 1px;">Class Average Precent</label> : {{p}} <br><br><hr>
+    </div>
+    <canvas id="chart" width="800" height="300" style="margin-left: 500px;position: absolute; margin-top: -70px"></canvas>
+    <label style="margin-top: -10px">Average Present</label><br>
+    <canvas id="pie-chart" width="500" height="300"></canvas><br>
+    <h4 style="margin-bottom: 20px; margin-top: 20px;margin-left: 500px">Student Attendace</h4>
+    <div class = 'row'>
+    <div class="col-5" style="margin-left: 700px; margin-top: -330px">
+      <h6><label style="margin-bottom: 10px;">Attendance :</label></h6>
+      <label style="margin-bottom: 10px;">Above 90 Percent :</label><br>
+      <label style="margin-bottom: 10px;">Above 85 Percent :</label><br>
+      <label style="margin-bottom: 10px;">Above 80 Percent :</label><br>
+      <label style="margin-bottom: 10px;">Above 75 Percent :</label><br>
+	  <label style="margin-bottom: 1px;">Below 75 Percent :</label>
+    </div>
+    <div class = 'col-3' style="margin-left: 900px; margin-top: -330px" >
+    	<h6 style="margin-bottom: -5px;">Marks</h6><br>
+    	<p style="margin-bottom: 10px;">5</p>
+    	<p style="margin-bottom: 10px;">4</p>
+    	<p style="margin-bottom: 10px;">3</p>
+    	<p style="margin-bottom: 10px;">2</p>
+    	<p style="margin-bottom: 1px;">0</p>
+      <hr>
+    </div>
+  </div>
+</div>
+<form method="POST" action="/Teacher/SubmitAttendance/{{Id}}/{{Year}}/{{Group}}/{{Semester}}/{{Course}}/">
+   {% csrf_token %}
+    <button id="submit" type = 'submit' name = 'SUBMIT' value= 'submit' class="btn btn-primary active" style="margin-left: 1200px;margin-top: -80px">SUBMIT ATTENDANCE</button>
+  <table class="table" style="margin-left: 100px; margin-top: 0px; width:1100px;">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Roll Number</th>
+      <th scope="col">Days Present</th>
+      <th scope="col">Average Attendace</th>
+      <th scope="col">Marks Alloted</th>
+    </tr>
+  </thead>
+  <tbody>
+  	{% for i in dataframe %}
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{i.0}}</td>
+      <td>{{i.1}}</td>
+      <td id = 'name{{forloop.counter}}'>{{i.3}}</td>
+      <td><input name = {{i.0}} value = {{i.4}} readonly=""></td>
+    {% endfor %}
+    </tr>
+</tbody>
+</table>
+</form>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <script>
+
+    var config = {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: {{ data|safe }},
+          backgroundColor: [
+            '#1100BB', '#0033EE'
+          ],
+          label: 'Attendance'
+        }],
+        labels: {{ labels|safe }}
+      },
+      options: {
+        responsive: false
+      }
+    };
+
+    window.onload = function() {
+      var ctx = document.getElementById('pie-chart').getContext('2d');
+      window.myPie = new Chart(ctx, config);
+    };
+let ctx1 = document.getElementById("chart").getContext("2d");
+
+let chart = new Chart(ctx1, {
+  type: "bar",
+  data: {
+     labels:['below 75%', 'above 75%', 'above 80%', 'above 85%', 'above 90%'],
+     datasets: [
+        {
+          label: "Attenadance of Class",
+          backgroundColor: "#79AEC8",
+          borderColor: "#417690",
+          data: {{bardata}}
+        }
+     ]
+  },
+  options: {
+  	responsive : false,
+     title: {
+        text: "Attenadance of The Class",
+        display: true
+     },
+     scales: {
+        yAxes: [{
+        	beginAtZero: true,
+        	ticks: {
+                min: 0,
+                max: 60
+            },
+            grid: {
+             offset : true,
+              display : false
+            }
+        }],
+        xAxes: [{
+            grid: {
+              display : false
+            }
+        }]
+
+    }
+  }
+});
+  </script>
+  
+{% endblock %}

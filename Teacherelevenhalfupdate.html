@@ -1,0 +1,34 @@
+{% extends "main.html" %}
+{% block content %}
+{% load static %}
+<a href = "/"><img src="{% static '/images/Logouticon.jpeg' %}" style="width:40px;height:40px; margin-left: 100%; margin-top:10px;"></a></a><br>
+<h5>Assignment</h5>
+<form id = 'AssignmentSubmit' method="POST" action="/Teacher/AssignmentSubmit/{{Id}}/{{Year}}/{{Group}}/{{Semester}}/{{Course}}/">
+    {% csrf_token %}
+    <button id="submit" type = 'submit' name = 'SUBMIT' value= 'updatemarks' class="btn btn-primary active">SUBMIT MARKS</button>
+    <div>
+        <br>
+        <label>MARKS CONDUCTED FOR:</label>
+        <input type="text" name="Total Marks" placeholder="Enter The Total Marks Exam Is Conducted For" value="5" readonly="">
+    </div><br>
+    <table class="table">
+        <thead><tr>
+            <th scope="col">#</th>
+            <th scope="col">STUDENT NAME</th>
+            <th scope="col">ROLL NUMBER</th>
+            <th scope="col">MARKS</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for student in Attendance %}
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{student.Roll_Number_Marks.Last_Name}}</td>
+            <td><b>{{student.Roll_Number_Marks.Roll_Number}}</b></td>
+            <td><input type = 'text' id = "{{student.Roll_Number_Marks.Roll_Number}}" name = "{{student.Roll_Number_Marks.Roll_Number}}" class="" placeholder="Enter Marks" autocomplete="off" value = '{{student.Marks_Alloted}}'></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+</form>
+{% endblock %}

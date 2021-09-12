@@ -1,0 +1,47 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+<br>
+<style>
+  .container1{
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  margin-top: 2%;
+  width:100%;
+
+  }
+  .btn btn-dark{
+    margin-top: 2%;
+  }
+</style>
+{% load static %}
+<a href= "/"><img src="{% static '/images/Logouticon.jpeg' %}" style="width:40px;height:40px; margin-left: 100%"></a><br>
+  <a href="javascript:history.go(-1)"><img src="{% static '/images/Backicon.jpeg' %}" style="width:40px;height:40px;margin-top: -70px"></a><br>
+<form action = "/Faculty/AddStudent/Details/Register/" enctype='multipart/form-data' method = 'POST'>
+{% csrf_token %}
+<input type="submit" value="SUBMIT" style="margin-left: 1000px; width: 200px;" class='btn btn-warning'><br>
+<h1 style="font-family: serif;">EDIT STUDENT</h1>
+
+<div class="container1"><br>
+  <img src="{%static '/images/a.jpeg' %}" style="margin-left: 750px; width:40%">
+  <div style="margin-top: -270px;">
+
+
+ {% for field in form %}
+
+ <b> <div class="row" style="width: 1000px; margin-left: 5px; font-family: cursive;"></b>
+    <div class="col">
+      <h6>{{ field.label }}</h6>
+    </div>
+    <div class="col">
+      {{ field }}
+    </div>
+  </div>
+    <br>
+{% endfor %}
+</div>
+ </div>
+</div>
+</form>
+<br>
+{% endblock %}

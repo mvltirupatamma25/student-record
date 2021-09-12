@@ -1,0 +1,27 @@
+{% extends "main.html" %}
+
+{% block content %}
+{%load static %}
+<br>
+<a href= "/"><img src="{% static '/images/Logouticon.jpeg' %}" style="width:40px;height:40px; margin-left: 100%"></a><br>
+	<a href="javascript:history.go(-1)"><img src="{% static '/images/Backicon.jpeg' %}" style="width:40px;height:40px;margin-top: -70px "></a>
+<div class="container">
+	<center><h1 style="font-family: Candara;"> STUDENTS LIST</h1></center>
+	<div class="row row-cols-3">
+		{% for Student in Student_Filter %}
+    	<div class="col">
+      		<div class="card" style="width: 20rem; height: 23rem; box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);"><br>
+  			<center><img src="{{Student.Student_Image.url}}" class="card-img-top" alt="..." style="width:200px;">
+ 			 <div class="card-body">
+    			<a href="/Faculty/{{Student.Year_Of_Admission}}/{{Student.First_Name}}/{{Student.Roll_Number}}/"><button class='btn btn-warning'>{{Student.Roll_Number}}</button></a>
+    			<p class="card-text"><b>{{Student.First_Name}}&nbsp;{{Student.Last_Name}}</b></p>
+    		</div>
+  			</div>
+			</div>
+			<br>
+			<br>
+		</div>
+		{% endfor %}
+  	</div>
+</div>  
+{% endblock %}

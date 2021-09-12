@@ -1,0 +1,62 @@
+{% extends "main.html" %}
+{% block content %}
+{% load static %}
+<a href = "/"><img src="{% static '/images/Logouticon.jpeg' %}" style="width:40px;height:40px; margin-left: 100%;margin-top:10px;"></a><br>
+<h5>I Internal</h5>
+<form id = 'I InternalSubmit' method="POST" action="/Teacher/IInternalSubmit/{{Id}}/{{Year}}/{{Group}}/{{Semester}}/{{Course}}/">
+    {% csrf_token %}
+    <button id="submit" type = 'submit' name = 'SUBMIT' value= 'updatemarks' class="btn btn-primary active">SUBMIT MARKS</button>
+    <div>
+        <br>
+        <label>MARKS CONDUCTED FOR:</label>
+        <input type="text" name="Total Marks" placeholder="Enter The Total Marks Exam Is Conducted For" value="30" readonly="">
+    </div><br>
+    <table class="table">
+        <thead><tr>
+            <th scope="col">#</th>
+            <th scope="col">STUDENT NAME</th>
+            <th scope="col">ROLL NUMBER</th>
+            <th scope="col">ABSENT FOR EXAM</th>
+            <th scope="col">MARKS</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for student in Attendance %}
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{student.Roll_Number_Marks.Last_Name}}</td>
+            <td><b>{{student.Roll_Number_Marks.Roll_Number}}</b></td>
+            {% if student.Marks_Alloted == None %}
+            <td><input type="text" name = '{{student.Roll_Number_Marks.Roll_Number}}' id = "{{student.Roll_Number_Marks.Roll_Number}}" class="btn btn-primary" value = "Absent" readonly=""></input></td>
+            {% else %}
+            <td><input type="text" name = '{{student.Roll_Number_Marks.Roll_Number}}' id = "{{student.Roll_Number_Marks.Roll_Number}}" class="btn btn-primary" value = "Present" readonly=""></input></td>
+            {% endif %}
+            <td><input type = 'text' id = "{{student.Roll_Number_Marks.Roll_Number}}" name = "{{student.Roll_Number_Marks.Roll_Number}}" class={{student.Roll_Number_Marks.Roll_Number}} placeholder="Enter Marks" autocomplete="off" value = '{{student.Marks_Alloted}}'></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+</form>
+<script>
+var colors = ["#1870d5","#1b7ced"];
+var buttons = document.querySelectorAll('input[class = "btn btn-primary"]');
+
+for (var i=0; i<buttons.length; ++i) {
+  var colorIndex = 0;
+  buttons[i].addEventListener('click', clickFunc);
+}
+function clickFunc() {
+  var col = document.getElementById(this.id);
+  var col1 = document.getElementsByClassName(this.id);
+  /*col.style.backgroundColor = colors[colorIndex];*/
+  colorIndex = (colorIndex + 1) % colors.length;
+  if (colorIndex == 0){
+    col.value = "Absent";
+    col1.value = 'None';
+  }
+  else{
+    col.value = "Present";
+  }
+}
+</script> 
+{% endblock %}

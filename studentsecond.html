@@ -1,0 +1,50 @@
+{% extends "main.html" %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Bubblegum+Sans" />
+<style>
+</style>
+<br>
+<br>
+<div class="container">
+  <div class="row border-right">
+    <div class="col">
+    	<br>
+    	<h3>SEMESTERS</h3>
+      	<nav class="nav flex-column" style="margin-left: 30px; font-size:250%;">
+  	    <a class="nav-link active" href="/Student/{{Roll_Number}}/Attendance/Semester/1/{{Group}}/" >1</a>
+  		<a class="nav-link" href="/Student/{{Roll_Number}}/Attendance/Semester/2/{{Group}}/">2</a>
+  		<a class="nav-link" href="/Student/{{Roll_Number}}/Attendance/Semester/3/{{Group}}/">3</a>
+  		<a class="nav-link" href="/Student/{{Roll_Number}}/Attendance/Semester/4/{{Group}}/">4</a>
+  		<a class="nav-link" href="/Student/{{Roll_Number}}/Attendance/Semester/5/{{Group}}/">5</a>
+  		<a class="nav-link" href="/Student/{{Roll_Number}}/Attendance/Semester/6/{{Group}}/">6</a>
+		</nav>
+    </div>
+    <div class="col-9">
+      <br>
+      <h5>{{Semester}}</h5>
+      <table class="table" style="position: center;">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Course Code</th>
+      <th scope="col">Teacher</th>
+      <th scope="col">Paper Title</th>
+    </tr>
+  </thead>
+  <tbody>
+  	{% for student in Attendance %}
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{student.Course_Code.Course_Code}}</td>
+      <td>{{student.Teacher_Id.Teacher_Name}}</td>
+      <td><a href = "/Student/Attendance/{{Roll_Number}}/{{Group}}/{{student.Teacher_Id.Teacher_Id}}/{{student.Course_Code.Course_Code}}/{{sem}}/">{{student.Course_Code.Course_Title}}</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+    </div>
+   </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "main.html" %}
+
+{% block content %}
+{% load static %}
+<a href = "/"><img src="{% static '/Image/Logouticon.jfif' %}" style="width:40px;height:40px; margin-left: 100%; margin-top:10px;"></a><br>
+<nav class="nav nav-pills nav-justified">
+  <a class="nav-link active" aria-current="page" href="/Teacher/IInternal/{{Id}}/{{Year}}/{{Group}}/{{Semester}}/{{Course}}/">I INTERNAL</a>
+  <a class="nav-link" href="/Teacher/IIInternal/{{Id}}/{{Year}}/{{Group}}/{{Semester}}/{{Course}}/">II INTERNAL</a>
+  <a class="nav-link" href="/Teacher/Assignment/{{Id}}/{{Year}}/{{Group}}/{{Semester}}/{{Course}}/">ASSIGNMENT</a>
+  <a class="nav-link" href="/Teacher/Semester/{{Id}}/{{Year}}/{{Group}}/{{Semester}}/{{Course}}/" tabindex="-1" aria-disabled="true">SEMESTER</a>
+</nav><br>
+<h5>I Internal</h5>
+<form id = 'InternalIMarks' method="POST" action="/Teacher/IInternalSubmit/{{Id}}/{{Year}}/{{Group}}/{{Semester}}/{{Course}}/">
+    {% csrf_token %}
+    <button id="submit" type = 'submit' name = 'SUBMIT' value= 'submit' class="btn btn-primary active">SUBMIT I INTERNAL MARKS</button>
+    <div>
+        <br>
+        <label>MARKS CONDUCTED FOR:</label>
+        <input type="text" name="Total Marks" placeholder="Enter The Total Marks Exam Is Conducted For" value="30">
+    </div><br>
+    <table class="table">
+        <thead><tr>
+            <th scope="col">#</th>
+            <th scope="col">STUDENT NAME</th>
+            <th scope="col">ROLL NUMBER</th>
+            <th scope="col">ABSENT FOR EXAM</th>
+            <th scope="col">MARKS</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for student in Attendance %}
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{student.Last_Name}}</td>
+            <td><b>{{student.Roll_Number}}</b></td>
+            <td><input type = 'checkbox' name = '{{student.Roll_Number}}' style="margin-left: 60px;color: blue;border: blue;"></td>
+            <td><input type = 'text' id = "{{student.Roll_Number}}" name = "{{student.Roll_Number}}" class="" placeholder="Enter Marks" autocomplete="off"></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+</form>
+{% endblock %}

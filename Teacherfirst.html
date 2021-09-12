@@ -1,0 +1,34 @@
+{% extends "main.html" %}
+
+{% block content %}
+{% load static %}
+<a href = "/"><img src="{% static '/images/Logouticon.jpeg' %}" style="width:40px;height:40px; margin-left: 100%;margin-top:10px;"></a><br>
+<head>
+    <style type="text/css">
+        .hr1{
+             
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    {% for V in visit %}
+    <br>
+    <div class="card" id="circle" style="width: 18rem; box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);">
+    <div class="card-body">
+    <a href="/Teacher/{{V.Teacher_Id.Teacher_Id}}/{{V.Group.Group}}/{{V.Year_Of_Admission}}/{{V.Semester_Teacher}}/{{V.Course_Code.Course_Code}}/" class="card-title">{{V.Group.Group}}</a> 
+    <h6 class="card-subtitle mb-2 text-muted">{{V.Course_Code.Course_Code}}</h6>
+    <hr style="background-color: blue; height: 3px; width:70%;">
+    <p class="card-text" style="text-transform: capitalize;">Course Title : {{V.Course_Code.Course_Title}}
+                         Batch : {{V.Year_Of_Admission}} 
+                         Semester : {{V.Semester_Teacher}}</p>
+    <img src="{% static '/images/dots1.jpg' %}" style="width:100%">
+    <!--<p class="card-text">{{V.Semester_Teacher}}</p>
+    <a href="#" class="card-link">{{V.Course_Code.Course_Title}}</a>
+    <a href="#" class="card-link">{{V.Semester_Teacher}}</a>--->
+    {% endfor %}
+    </div>
+    </div>
+</div>
+</body>  
+{% endblock %}

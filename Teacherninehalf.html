@@ -1,0 +1,102 @@
+{% extends "main.html" %}
+{% block content %}
+{% load static %}
+<a href = "/"><img src="{% static '/images/Logouticon.jpeg' %}" style="width:40px;height:40px; margin-left: 100%;margin-top:10px;"></a><br>
+<nav class="nav nav-pills nav-justified">
+  <a class="nav-link active" aria-current="page" href="/Teacher/IInternal/{{Id}}/{{Year}}/{{Group}}/{{Semester}}/{{Course}}/">I INTERNAL</a>
+  <a class="nav-link" href="/Teacher/IIInternal/{{Id}}/{{Year}}/{{Group}}/{{Semester}}/{{Course}}/">II INTERNAL</a>
+  <a class="nav-link" href="/Teacher/Assignment/{{Id}}/{{Year}}/{{Group}}/{{Semester}}/{{Course}}/">ASSIGNMENT</a>
+  <a class="nav-link" href="/Teacher/Semester/{{Id}}/{{Year}}/{{Group}}/{{Semester}}/{{Course}}/" tabindex="-1" aria-disabled="true">SEMESTER</a>
+</nav><br>
+<h5>I Internal</h5>
+<form id = 'I InternalSubmit' method="POST" action="/Teacher/IInternalSubmit/{{Id}}/{{Year}}/{{Group}}/{{Semester}}/{{Course}}/">
+    {% csrf_token %}
+    <button id="submit" type = 'submit' name = 'SUBMIT' value= 'updatepage' class="btn btn-primary active">UPDATE MARKS</button>
+    <button id="submit" type = 'submit' name = 'SUBMIT' value= 'delete' class="btn btn-primary active">DELETE MARKS</button>
+    <div>
+        <br>
+        <hr>
+        <label>MARKS CONDUCTED FOR:</label>
+        <input type="text" name="Total Marks" placeholder="Enter The Total Marks Exam Is Conducted For" value="30" readonly=""><br><br>
+        <div class="col-15">
+      <label style="margin-bottom: 10px;">Course Code </label> : {{Course}}<br>
+      <label style="margin-bottom: 10px;">Class Average</label> :{{average}} <br>
+      <label style="margin-bottom: 10px;">Class Strength</label> : {{T_S}}<br>
+      <label style="margin-bottom: 10px;">Number Of Absents</label> : {{Absent}}<br>
+      <label style="margin-bottom: 10px;">Number Of Present</label> : {{Present}}<br><br>
+    </div>
+        <canvas id="pie-chart" width="300" height="300" style="margin-left: 900px; margin-top:-250px"></canvas>
+        <hr>
+    </div><br>
+    <table class="table">
+        <thead><tr>
+            <th scope="col">#</th>
+            <th scope="col">STUDENT NAME</th>
+            <th scope="col">ROLL NUMBER</th>
+            <th scope="col">MARKS</th>
+            <th scope="col">PASS-FAIL</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for student in Attendance %}
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{student.Roll_Number_Marks.Last_Name}}&nbsp;{{student.Roll_Number_Marks.First_Name}}</td>
+            <td><b>{{student.Roll_Number_Marks.Roll_Number}}</b></td>
+            {% if student.Marks_Alloted != None %}
+            <td>{{student.Marks_Alloted}}</td>
+            {% else %}
+            <td>ABSENT</td>
+            {% endif %}
+            {% if student.Marks_Alloted > 11 %}
+            <td style="color: green;"><b>PASSED</b></td>
+            {% else %}
+            <td style="color: red;"><b>FAILED</b></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+</form>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <script>
+
+    var config = {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: {{ data|safe }},
+          backgroundColor: [
+            '#1100BB', '#0033EE'
+          ],
+          label: 'Attendance'
+        }],
+        labels: {{ labels|safe }}
+      },
+      options: {
+        responsive: false
+      }
+    };
+
+    window.onload = function() {
+      var ctx = document.getElementById('pie-chart').getContext('2d');
+      window.myPie = new Chart(ctx, config);
+    };
+var buttons = document.querySelectorAll('input');
+
+for (var i=0; i<buttons.length; ++i) {
+  buttons[i].addEventListener('click', clickFunc);
+}
+function clickFunc() {
+    var col = document.getElementById(this.id);
+    /*col.style.backgroundColor = colors[colorIndex];*/
+    colorIndex = (colorIndex + 1) % colors.length;
+    if (colorIndex == 0){
+        col.value = "PRESENT";
+    }
+    else{
+        col.value = "ABSENT";
+    }
+}
+</script>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "main.html" %}
+
+{% block content %}
+{% load static%}
+<style>
+</style>
+<style>
+</style>
+<img src ="{% static '/images/student.png' %}" style="width:150px; margin-left: 1200px; margin-top:10px;"><br><br><br>
+<form action = "/Faculty/AddStudent/Details/Register/NewStudent/" enctype='multipart/form-data' method = 'POST'>
+	<center>
+<table style="margin-top:-100px; border:2px solid grey; width:90%;box-shadow: 0 3px 10px rgb(0 0 0 / 0.2)"><br><br>
+{% csrf_token %}
+  {{form}}
+  <br>
+
+</table><br>
+<input type="submit" value="Submit" class="btn btn-dark">
+
+
+</center>
+<form>
+<br>
+{% endblock %}

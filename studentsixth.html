@@ -1,0 +1,28 @@
+{% extends "main.html" %}
+
+{% block content %}
+<br>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+  &nbsp;&nbsp;
+{% for i in Attendance %}
+<div class="btn-group">
+  <button class="btn btn-link btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 20px;">
+    {{i}}
+  </button>
+  <div class="dropdown-menu">
+    {% for j in Marks %}
+    <a class="dropdown-item" href="/Student/Marks/Examination/{{Roll_Number}}/{{Group}}/{{i}}/{{j}}/">{{j}}</a>
+    {% endfor %}
+  </div>
+</div>
+{% endfor %}
+<br><br>
+<b style="margin-left: 450px; margin-bottom:100px;">{{text}}<b>
+</body>
+{% endblock %}

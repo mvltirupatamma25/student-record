@@ -1,0 +1,36 @@
+{% extends "main.html" %}
+
+{% block content %}
+{% load static%}
+<style>
+	.card{
+		box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+		border-color: #cb7b0b;
+
+	}
+	.a{
+		color: yellow;
+	}
+</style>
+<br><br>
+<img src="{% static '\images\college.png' %}" style="width:10%;">
+<a href="/Faculty/AddStudent/Details/Register/NewStudent/" style="margin-left:1000px;" ><button class="btn btn-warning">Add Student</button></a><br>
+
+<div class="container1">
+
+	<br>
+	{% for Group in Groups_list %}	
+	<div class="row">
+		<div class='card' style="padding:20px solid #f7bd6d;">
+		{% for Year in Year_Of_Admission_list %}
+		<div class="col">
+			<b><a href="/Faculty/{{Year}}/{{Group}}" style="color:#cb7b0b;">{{Group}}</a><br></b>
+			{{Year}}<br>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+	<br>
+	{% endfor %} 
+</div>  
+{% endblock %}

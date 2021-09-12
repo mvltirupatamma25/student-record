@@ -1,0 +1,54 @@
+{% extends "main.html" %}
+
+{% block content %}
+<br>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    .dropdown-menu{
+      background-color:white;
+    }
+  </style>
+</head>
+<body>
+  &nbsp;&nbsp;
+ <nav style="background-color:#fc8cb7;" >
+
+{% for i in Attendance %}
+<div class="btn-group">
+  <button class="btn btn-link btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 20px; color:white;font-size: 17px; font-family: : cursive;" >
+    <b style="font-family: cursive;">{{i}}</b>
+  </button>
+  <div class="dropdown-menu">
+    {% for j in Marks %}
+    <a class="dropdown-item" href="/Student/Marks/Examination/{{Roll_Number}}/{{Group}}/{{i}}/{{j}}/">{{j}}</a>
+    {% endfor %}
+  </div>
+</div>
+{% endfor %}
+</nav>
+<br><br>
+<table class="table">
+  <thead><tr>
+    <th scope="col">#</th>
+    <th scope="col">COURSE CODE</th>
+    <th scope="col">PAPER TITLE</th>
+    <th scope="col">MARKS ALLOTED</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for s in Student %}
+    <tr>
+    <th scope="row">{{forloop.counter}}</th>
+    <td>{{s.Course_Code.Course_Code}}</td>
+    <td>{{s.Course_Code.Course_Title}}</td>
+    <td>{{s.Marks_Alloted}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</body>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "main.html" %}
+{% load mathfilters %}
+{% block content %}
+{% load static %}
+<a href = "/"><img src="{% static '/images/Logouticon.jpeg' %}" style="width:40px;height:40px; margin-left: 100%; margin-top:10px;"></a>
+<a href="javascript:history.go(-1)"><img src="{% static '/images/Backicon.jpeg' %}" style="width:40px;height:40px;margin-top: -70px"></a><br>
+<!--<div class="container">-->
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Roll Number</th>
+      <th scope="col">Internal I</th>
+      <th scope="col">Internal II</th>
+      <th scope="col">Assignment</th>
+      <th scope="col">Semester</th>
+      <th scope="col">Attendance</th>
+      <th scope ="col">Internal Score</th>
+      <th scope="col">Total Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for student in result %}
+    <tr>
+      <td scope="row">{{forloop.counter}}</td>
+      <td><b>{{student.0}}</b></td>
+      <td>{{student.1}}</td>
+      {% if student.2 == None %}
+      <td style="color: red;"><b>ABSENT</b></td>
+      {% elif student.2 < 12 %}
+      <td style="color: red;"><b>{{student.2}}</b></td>
+      {% else %}
+      <td style="color: green;"><b>{{student.2}}</b></td>
+      {% endif %}
+      {% if student.3 == None %}
+      <td style="color: red;"><b>ABSENT</b></td>
+      {% elif student.3 < 12 %}
+      <td style="color: red;"><b>{{student.3}}</b></td>
+      {% else %}
+      <td style="color: green;"><b>{{student.3}}</b></td>
+      {% endif %}
+      <td>{{student.4}}</td>
+      {% if student.5 == None %}
+      <td style="color: red;"><b>ABSENT</b></td>
+      {% elif student.5 < 35 %}
+      <td style="color: red;"><b>{{student.5}}</b></td>
+      {% else %}
+      <td style="color: green;"><b>{{student.5}}</b></td>
+      {% endif %}
+      <td>{{student.6}}</td>
+      <td>{{student.7}}</td>
+      <td><b>{{student.8}}</b></td>
+    </tr>
+    {% endfor %}
+   </tbody>
+</table>
+{% endblock %}

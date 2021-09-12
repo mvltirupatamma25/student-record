@@ -1,0 +1,36 @@
+{% extends "main.html" %}
+{% load mathfilters %}
+{% block content %}
+{% load static %}
+<a href = "/"><img src="{% static '/images/Logouticon.jpeg' %}" style="width:40px;height:40px; margin-left: 100%; margin-top:10px;"></a>
+<a href="javascript:history.go(-1)"><img src="{% static '/images/Backicon.jpeg' %}" style="width:40px;height:40px;margin-top: -70px"></a><br>
+<form id = 'AttendanceTotal' method="POST" action="/Teacher/MarkAttendance/{{Id}}/{{Year}}/{{Group}}/{{Semester}}/{{Course}}/">
+{% csrf_token %}
+<button id="submit" type = 'submit' name = 'SUBMIT' value= 'Mark' class="btn btn-primary active">MARK ATTENDANCE</button>
+<button id="submit" type = 'submit' name = 'SUBMIT' value= 'Delete' class="btn btn-primary active">DELETE ATTENDANCE</button>
+<button id="submit" type = 'submit' name = 'SUBMIT' value= 'Report' class="btn btn-primary active" style = 'margin-left: 86%; margin-top: -4%;'>REPORT GENERATED</button>
+<br><br>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope = "col"> checkbox</th>
+      <th scope="col">#</th>
+      <th scope="col">Date of the Attendance</th>
+      <th scope="col">Number Of Absent</th>
+      <th scope="col">Number Of Present</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for Date,value in Dates.items %}
+    <tr>
+      <td><input type = 'checkbox' name = '{{Date}}'></td>
+      <th scope="row">{{forloop.counter}}</th>
+      <td><a href = "/Teacher/UpdateAttendance/{{Id}}/{{Year}}/{{Group}}/{{Semester}}/{{Course}}/{{Date}}">{{Date}}</a></td>
+      <td>{{T|sub:value}}</td>
+      <td>{{value}}</td>
+    </tr>
+    {% endfor %}
+   </tbody>
+</table>
+</form>
+{% endblock %}

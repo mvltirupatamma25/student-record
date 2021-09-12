@@ -1,0 +1,73 @@
+{% extends "main.html" %}
+
+{% block content %}
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<style>
+
+.btn-circle.btn-xl {
+            width: 70px;
+            height: 70px;
+            padding: 10px 16px;
+            border-radius: 35px;
+            font-size: 12px;
+            text-align: center;
+        }
+</style>
+</head>
+<body>
+<form id = "Attendancesubmit" action = '/Teacher/ChangeAttendance/{{Id}}/{{Year}}/{{Group}}/{{Semester}}/{{Course}}/{{Date_Total}}/' method="POST">
+<div class="container">
+  {% csrf_token %}
+  <br><!--<button type="button" class="btn btn-primary active" data-bs-toggle="button" autocomplete="off" aria-pressed="true" id="submit" name = 'SUBMIT' value= 'submit'>SUBMIT ATTENDANCE</button>-->
+  <button id="submit" type = 'submit' name = 'SUBMIT' value= 'submit' class="btn btn-primary active">UPDATE ATTENDANCE</button>
+  <div class="md-form md-outline input-with-post-icon datepicker" id="formatsSection">
+    <br>
+    <label for="formats-example">DATE OF THE ATTENDANCE</label>
+    <input placeholder="Select date" name = "Date" type="text" id="formats-example" class="form-control" value = '{{Month}}.{{Date}}, {{Year}}' readonly="">
+    <i class="fas fa-calendar input-prefix" tabindex=0></i>
+  </div>
+</form>
+<br>
+<table class="table">
+  <thead><tr>
+    <th scope="col">#</th>
+    <th scope="col">STUDENT NAME</th>
+    <th scope="col">ROLL NUMBER</th>
+    <th scope="col">ATTENDANCE</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for student in Attendance %}
+    <tr>
+    <th scope="row">{{forloop.counter}}</th>
+    <td>{{student.Roll_Number_Attendance.Last_Name}}</td>
+    <td><b>{{student.Roll_Number_Attendance.Roll_Number}}</b></td>
+    <td><input type = 'text' id = "{{student.Roll_Number_Attendance.Roll_Number}}" name = "{{student.Roll_Number_Attendance.Roll_Number}}" class="btn btn-primary active" readonly ='' value = '{{student.Attendance_Date}}'></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<script>
+var colors = ["#1870d5","#1b7ced"];
+var colorIndex = 0;
+var buttons = document.querySelectorAll('input[class = "btn btn-primary active"]');
+
+for (var i=0; i<buttons.length; ++i) {
+  buttons[i].addEventListener('click', clickFunc);
+}
+function clickFunc() {
+  var col = document.getElementById(this.id);
+  /*col.style.backgroundColor = colors[colorIndex];*/
+  colorIndex = (colorIndex + 1) % colors.length;
+  if (colorIndex == 0){
+    col.value = "PRESENT";
+  }
+  else{
+    col.value = "ABSENT";
+  }
+}
+</script> 
+</body> 
+{% endblock %}

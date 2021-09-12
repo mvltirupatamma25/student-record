@@ -1,0 +1,60 @@
+{% extends "main.html" %}
+{% block content %}
+{%load static%}
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  .full-width {
+  left: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  max-width: 100vw;
+  position: relative;
+  right: 50%;
+  width: 100vw;
+}
+.container{
+  margin-top: 10%
+}
+</style>
+</head>
+<body onload="myFunction()" style="margin:0;" >
+<div id="loader" >
+  {% load static %}
+  <img src="{% static '/images/Back.jpg' %}" class="full-width"  style="width:90%;height: 700px;margin-left: -550px;margin-top: 10px;">
+</div>
+<div class="container" style="display:none;" id="myDiv" class="animate-bottom">
+  <img src="{%static '/images/banner.jpeg/'%}" style="margin-top:-210px; height:100px; width: 1200px; margin-left: 30px;">
+  <div class="row" style="margin-left: -70px;" >
+    <div class="col" style="margin-right:-5%;text-align: center;"><br>
+      <a href='/FACULTY/LOGIN/'>
+     <img src="{%static '/images/non1.jpg' %}" style="width:300px ; height:300px margin-top:-10% " 
+     > </a>
+      <h3> NON TEACHING</h3>
+    </div>
+    <div class="col" style="margin-right:-5%;text-align: center;">
+      <a href='/TEACHING/FACULTY/LOGIN/'>
+      <img src="{%static '/images/teachericon.png' %}" style="width:200px ; height:200px; margin-top: 75px;"></a><br><br><br>
+      <h3> TEACHING FACULTY</h3>
+    </div>
+    <div class="col" style="margin-right:-5%;text-align: center;">
+      <a href='/STUDENT/LOGIN/'><br>
+      <img src="{%static '/images/studentlogin.jpg' %}"style="width:300px ; height:300px"></a>
+      <h3> STUDENT  </h3>
+    </div>
+  </div>
+</div>
+<script>
+var myVar;
+
+function myFunction() {
+  myVar = setTimeout(showPage, 3000);
+}
+
+function showPage() {
+  document.getElementById("loader").style.display = "none";
+  document.getElementById("myDiv").style.display = "block";
+}
+</script>
+</body>
+{% endblock %}
